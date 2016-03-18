@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<beans:beans xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans" xmlns="http://www.springframework.org/schema/security">
+
+
+<http use-expressions="true" auto-config="true">
+
+<intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR') or hasIpAddress('0:0:0:0:0:0:0:1')" pattern="/admin/*"/>
+
+</http>
+
+<beans:import resource="servlet-context.xml"/>
+
+
+<authentication-manager>
+
+
+<authentication-provider>
+
+<password-encoder ref="encoder"/>
+
+
+<user-service>
+
+<user authorities="ROLE_ADMIN" password="$2a$12$cOqgJ6LE44ZmntyPTixH0OFi0/OUCW/6LB1R2quj3qluMvBFngS9u" name="admin"/>
+
+</user-service>
+
+</authentication-provider>
+
+</authentication-manager>
+
+</beans:beans>
